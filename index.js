@@ -11,8 +11,8 @@ app.get("/", async function(req, res){
   res.json(resultado);
 });
 
-app.post("/",  function(req, res){
- var resultado = usuario.create(req.body);
+app.post("/",  async function(req, res){
+ var resultado = await usuario.create(req.body);
   res.json(resultado);
 });
 

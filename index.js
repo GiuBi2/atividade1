@@ -7,12 +7,25 @@ app.use(express.urlencoded({
   extended: true
 }))
 app.get("/", async function(req, res){
-  var resultado = await usuario.findAll();
+  var resultado = await usuario.findAll(req.body);
+  res.json(resultado);
+});
+app.get("/:id", async function(req, res){
+  var resultado = await usuario.findOne({where:{id: req.params.id}});
+  res.json(resultado);
+})
+app.post("/",  async function(req, res){
+ var resultado = await usuario.create(req.body);
   res.json(resultado);
 });
 
-app.post("/",  async function(req, res){
- var resultado = await usuario.create(req.body);
+app.put("/:id", async function(req, res){
+  var resultado = await usuario.update(req.body, { where:{ id:req.params.id }});
+  res.json(resultado);
+});
+
+app.delete("/:id", async function(req, res){
+  var resultado = await usuario.destroy({where:{id: req.params.id}});
   res.json(resultado);
 });
 
